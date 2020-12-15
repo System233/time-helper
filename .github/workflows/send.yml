@@ -13,4 +13,8 @@ jobs:
         node-version: '14.x'
 
     - name: Send Message
-      run: curl https://sc.ftqq.com/${{secrets.SCKEY}}.send?text=测试标题&desp=测试内容
+      run: |
+          npm install
+          npm run send 测试标题 测试内容
+      env:
+        SCKEY: ${{ secrets.SCKEY }}
