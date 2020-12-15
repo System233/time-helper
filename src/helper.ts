@@ -16,11 +16,13 @@ export class API{
         });
         this.http.interceptors.response.use(resp=>{
             const code=resp.data.code;
-            if((typeof code=="number"&&code)||(typeof code=="string"&&code!='10000')){
+            if((typeof code=="number"&&code)){
                 throw new Error(`${resp.data.msg}(${code})`);
+            }else if(typeof code=="string"&&code!='10000'){
+                throw new Error(`${resp.data.msg}：${resp.data.data}(${code})`);
             }
             return resp;
-        })
+        },e=>Promise.reject(e))
     }
 
     private doDKData(path:string,data:any){
@@ -80,7 +82,7 @@ export class Helper extends API{
             templateid:config.APP_ID,
             updatainfo,
         };
-        this.submitData(submit);
+        await this.submitData(submit);
     }
     setup(){
 

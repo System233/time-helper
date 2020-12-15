@@ -60,7 +60,7 @@ export class Session{
                 )
             }
             return config;
-        });
+        },e=>Promise.reject(e));
         this.http.interceptors.response.use(resp=>{
             if(!resp.data.result_){
                 throw new Error(resp.data.message_)
@@ -69,7 +69,7 @@ export class Session{
                 resp.data.data=JSON.parse(this.decryptDES(resp.data.data));
             }
             return resp;
-        })
+        },e=>Promise.reject(e))
     }
     
     decryptRSA(data:string){

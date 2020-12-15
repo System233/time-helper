@@ -9,19 +9,14 @@ interface Message{
 export function SendMessageWithKey(key:string,msg:Message){
     return Axios.post(`https://sc.ftqq.com/${key}.send`,stringify(msg as any));
 }
-export function SendMessage(text:string,desp?:string){
+export async function SendMessage(text:string,desp?:string){
     if(config.SCKEY){
-        return SendMessageWithKey(config.SCKEY,{text,desp});
+        const resp= await SendMessageWithKey(config.SCKEY,{text,desp});
+        return resp.data;
     }else{
         
         console.log(text,desp||'');
     }
-}
-export function SendError(text:string,desp?:string){
-    return SendMessage(`错误：${text}`,desp);
-}
-export function SendSuccess(text:string,desp?:string){
-    return SendMessage(`成功：${text}`,desp);
 }
 
 export function question(msg?:string,timeout?:number){

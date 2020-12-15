@@ -1,4 +1,4 @@
-import {Helper,SendError,SendSuccess,Session} from './src'
+import {Helper,SendMessage,Session} from './src'
 import config from './src/config'
 (async()=>{
     try{
@@ -10,10 +10,11 @@ import config from './src/config'
             token:config.TOKEN
         });
         const helper= new Helper(token);
-        helper.run();
-        await SendSuccess(config.TEXT_OK);
+        await helper.run();
+        await SendMessage(config.TEXT_OK,new Date().toLocaleString());
     }catch(error){
-        await SendError(error.message,['```js',error.stack,'```'].join('\n'));
+        await SendMessage(error.message,['```js',error.stack,'```'].join('\n'));
+        process.exit(-1);
     }
     
 })();
