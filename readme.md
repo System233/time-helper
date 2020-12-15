@@ -1,6 +1,6 @@
 # 完美校园打卡机
 
-![Time Helper](workflows/Time%20Helper/badge.svg)
+![Time Helper](https://github.com/System233/time-helper/workflows/Time%20Helper/badge.svg)
 
 MM再也不用担心自己上光荣榜了
 
