@@ -1,0 +1,34 @@
+{
+  "name": "time-helper",
+  "version": "1.0.0",
+  "description": "完美校园打卡机",
+  "main": "index.ts",
+  "scripts": {
+    "main": "npx ts-node index.ts",
+    "setup": "npx ts-node setup.ts",
+    "send": "npx ts-node send.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/System233/time-helper.git"
+  },
+  "keywords": [
+    "WanXiao",
+    "Auto",
+    "Action"
+  ],
+  "author": "System233",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/System233/time-helper/issues"
+  },
+  "homepage": "https://github.com/System233/time-helper#readme",
+  "dependencies": {
+    "@types/inquirer": "^7.3.1",
+    "@types/node": "^14.14.13",
+    "axios": "^0.21.0",
+    "inquirer": "^7.3.3",
+    "ts-node": "^9.1.1"
+  }
+}

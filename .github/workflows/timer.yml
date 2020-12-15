@@ -1,0 +1,37 @@
+name: "Time Helper"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2 
+    - uses: actions/setup-node@v2-beta
+      with:
+        node-version: '14.x'
+
+    - name: Work
+      run: npm install
+      run: npm run main
+      env:
+        USER_AGENT: ${{ secrets.USER_AGENT }}
+        USER_AGENT2: ${{ secrets.USER_AGENT2 }}
+        TYPE: ${{ secrets.TYPE }}
+        USERNAME: ${{ secrets.USERNAME }}
+        PASSWORD: ${{ secrets.PASSWORD }}
+        APP_ID: ${{ secrets.APP_ID }}
+        MODEL: ${{ secrets.MODEL }}
+        MODEL_CODE: ${{ secrets.MODEL_CODE }}
+        SYSTEM_VERSION: ${{ secrets.SYSTEM_VERSION }}
+        SYSTEM_TYPE: ${{ secrets.SYSTEM_TYPE }}
+        SCKEY: ${{ secrets.SCKEY }}
+        DEVICE_ID: ${{ secrets.DEVICE_ID }}
+        SEED: ${{ secrets.SEED }}
+        PROXY_HOST: ${{ secrets.PROXY_HOST }}
+        PROXY_PORT: ${{ secrets.PROXY_PORT }}
+        APP_VERSION: ${{ secrets.APP_VERSION }}
+        TEXT_OK: ${{ secrets.TEXT_OK }}
