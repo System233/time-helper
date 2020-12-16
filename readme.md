@@ -1,8 +1,12 @@
 # 完美校园打卡机
 
 ![Time Helper](https://github.com/System233/time-helper/workflows/Time%20Helper/badge.svg)
+![Get AppId](https://github.com/System233/time-helper/workflows/Get%20AppId/badge.svg)
+![Get Token](https://github.com/System233/time-helper/workflows/Get%20Token/badge.svg)
+![ServerChan Message Test](https://github.com/System233/time-helper/workflows/ServerChan%20Message%20Test/badge.svg)
 
-MM再也不用担心自己上光荣榜了
+MM再也不用担心自己上光荣榜了  
+如果此程序对你有用，右上给个一键三连吧😂（误）
 
 ## 目录
 
@@ -35,14 +39,15 @@ Server酱用于配置微信通知和获取参数。
 
 [点击注册](https://sc.ftqq.com/3.version)
 
-登录注册之后可以看到你的`SCKEY`，记下来等下一步用。
+登录注册之后就可以看到你的`SCKEY`，记下来等下一步用。
 
 ### 设置Secrets
 
+配置程序运行参数，支持参数列表见[Secret配置](#secret配置)  
 位置：`Settings`=>`Secrets`=>`New reposltory secret`
-![Secret](docs/Secret.jpg)
+![Secret](docs/secret.jpg)
 
-建议设置的值如下
+建议的配置值如下
 
 |名称|值|
 |-|-|
@@ -55,7 +60,7 @@ Server酱用于配置微信通知和获取参数。
 
 ### 获取AppID
 
-注意：Actions功能可能默认关闭，如果看不到这个功能请到设置看一下启用。  
+注意：Actions功能可能默认关闭，如果关闭就先启用一下（怎么启用我忘了）。  
 位置：`Actions`=>`Get AppId`=>`Run workflow`=>`Run workflow`  
 ![RunAction](docs/RunAction.jpg)
 点击绿色按钮运行GetAppID程序，运行完成后手机上应该收到一条通知，类似这样：  
@@ -78,7 +83,10 @@ Server酱用于配置微信通知和获取参数。
 
 ### 令牌登录
 
-每天打卡都登录可能有点奇怪，因此程序提供了令牌免登录功能。  
+更新：测试失败,此模式在Github服务器上不可用。
+  
+```markdown
+每天打卡都登录可能有点奇怪，因此程序提供了令牌免登录功能。 
 经过前几步配置并正常打卡后，用同样的步骤运行Actions中的`Get Token`程序  
 位置：`Actions`=>`Get Token`=>`Run workflow`=>`Run workflow`  
 稍后微信将会收到可用于服务器的Token配置，样子如下：  
@@ -86,10 +94,10 @@ Server酱用于配置微信通知和获取参数。
 |-|-|
 |TYPE|token|
 |TOKEN|*****|
-
 参照[设置Secrets](#设置secrets)步骤将值更新至Secrets，再次运行打卡测试  
 位置：`Settings`=>`Secrets`=>`Update`  
 如果正常，微信应该收到打卡成功或频繁打卡通知。
+```
 
 ## 命令行工具
 
