@@ -5,6 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "main": "npx ts-node index.ts",
+    "appId": "npx ts-node appId.ts",
     "setup": "npx ts-node setup.ts",
     "send": "npx ts-node send.ts",
     "test": "echo \"Error: no test specified\" && exit 1"

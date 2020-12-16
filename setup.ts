@@ -1,4 +1,4 @@
-import {Helper,setupConfig,Session, SendMessageWithKey} from './src'
+import {Helper,setupConfig,Session, SendMessageWithKey, getAppIdFromUrl} from './src'
 import inquirer from 'inquirer'
 import qs from 'querystring'
 (async()=>{
@@ -84,7 +84,7 @@ import qs from 'querystring'
                 message:'选择打卡项目',
                 choices:async (anwser)=>(await helper.getApps()).map(app=>({
                         name:app.name,
-                        value:qs.parse(app.url.slice(app.url.indexOf('?')+1)).templateid
+                        value:getAppIdFromUrl(app.url)
                 }))
             },
             {

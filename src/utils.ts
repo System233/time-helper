@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { stringify } from "querystring";
+import { parse, stringify } from "querystring";
 import { createInterface } from "readline";
 import config from "./config";
 interface Message{
@@ -8,6 +8,9 @@ interface Message{
 }
 export function SendMessageWithKey(key:string,msg:Message){
     return Axios.post(`https://sc.ftqq.com/${key}.send`,stringify(msg as any));
+}
+export function getAppIdFromUrl(url:string){
+    return parse(url.slice(url.indexOf('?')+1)).templateid;
 }
 export async function SendMessage(text:string,desp?:string){
     if(config.SCKEY){
