@@ -24,14 +24,14 @@ MM再也不用担心自己上光荣榜了
 
 ### Fork本项目
 
-点击页面右上角的`Fork`按钮，将仓库复制到自己账号
+点击页面右上角的`Fork`按钮，将仓库复制到自己账号  
 ![Fork](docs/Fork.jpg)
 
 ### 注册Server酱
 
-Server酱用于配置微信通知和获取参数。
-可以用Github账号登录，很快啊，啪一下就登录了。
-然后绑定你的微信，顺便发个消息试试。
+Server酱用于配置微信通知和获取参数。  
+可以用Github账号登录，很快啊，啪一下就登录了。  
+然后绑定你的微信，顺便发个消息试试。  
 
 [点击注册](https://sc.ftqq.com/3.version)
 
@@ -55,11 +55,10 @@ Server酱用于配置微信通知和获取参数。
 
 ### 获取AppID
 
-注意：Actions功能可能默认关闭，如果看不到这个功能请到设置看一下启用。
-位置：`Actions`=>`Get AppId`=>`Run workflow`=>`Run workflow`
+注意：Actions功能可能默认关闭，如果看不到这个功能请到设置看一下启用。  
+位置：`Actions`=>`Get AppId`=>`Run workflow`=>`Run workflow`  
 ![RunAction](docs/RunAction.jpg)
-
-点击绿色按钮运行GetAppID程序，运行完成后手机上应该收到一条通知，类似这样：
+点击绿色按钮运行GetAppID程序，运行完成后手机上应该收到一条通知，类似这样：  
 
 |打卡项目|APP_ID|
 | - | - |
@@ -71,31 +70,30 @@ Server酱用于配置微信通知和获取参数。
 
 ### 测试打卡
 
-所有参数设置完毕，接下来运行打卡程序进行测试
-位置：`Actions`=>`Time Helper`=>`Run workflow`=>`Run workflow`
-
+所有参数设置完毕，接下来运行打卡程序进行测试  
+位置：`Actions`=>`Time Helper`=>`Run workflow`=>`Run workflow`  
 ![测试打卡](docs/Run.jpg)
-如果配置正确，手机上应该收到打卡成功的通知，否则可能会收到异常报告。
-如果`SCKEY`没有配置或错误，结果会输出到Action日志中。
+如果配置正确，手机上应该收到打卡成功的通知，否则可能会收到异常报告。  
+如果`SCKEY`没有配置或错误，结果会输出到Action日志中。  
 
 ### 令牌登录
 
-每天打卡都登录可能有点奇怪，因此程序提供了令牌免登录功能。
-经过前几步配置并正常打卡后，用同样的步骤运行Actions中的`Get Token`程序
-位置：`Actions`=>`Get Token`=>`Run workflow`=>`Run workflow`
-稍后微信将会收到可用于服务器的Token配置，样子如下：
+每天打卡都登录可能有点奇怪，因此程序提供了令牌免登录功能。  
+经过前几步配置并正常打卡后，用同样的步骤运行Actions中的`Get Token`程序  
+位置：`Actions`=>`Get Token`=>`Run workflow`=>`Run workflow`  
+稍后微信将会收到可用于服务器的Token配置，样子如下：  
 |名称|值|
 |-|-|
 |TYPE|token|
 |TOKEN|*****|
 
-参照[设置Secrets](#设置secrets)步骤将值更新至Secrets，再次运行打卡测试
-位置：`Settings`=>`Secrets`=>`Update`
+参照[设置Secrets](#设置secrets)步骤将值更新至Secrets，再次运行打卡测试  
+位置：`Settings`=>`Secrets`=>`Update`  
 如果正常，微信应该收到打卡成功或频繁打卡通知。
 
 ## 命令行工具
 
-运行命令前先克隆仓库到本地，并安装node.js 14.x版本（测试平台）
+运行命令前先克隆仓库到本地，并安装node.js 14.x版本（测试平台）  
 然后运行`npm install`命令安装项目依赖
 
 ### APPID工具
@@ -132,7 +130,7 @@ npm run main
 
 ## Secret配置
 
-这里包含了所有支持在Secret中配置的字段。
+这里包含了所有支持在Secret中配置的字段。  
 建议设置`SEED`或`DEVICE_ID`字段来固定设备ID。
 
 |名称|类型/可选值|默认值|说明|
