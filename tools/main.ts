@@ -11,7 +11,7 @@ import {Helper, SendMessage, Session, config} from '../'
         const helper= new Helper(token);
         const data=await helper.run();
         const temp=data.cusTemplateRelations.find(x=>x.assembltype=="Temperature");
-        const message=[new Date().toLocaleString(),`体温：${temp.value}℃`].join('  \n');
+        const message=[new Date().toLocaleString(),`体温：${temp?.value}℃`].join('  \n');
         await SendMessage(config.TEXT_OK,message);
     }catch(error){
         await SendMessage(error.message,['```js',error.stack,'```'].join('\n'));
