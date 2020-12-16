@@ -6,83 +6,94 @@ MM再也不用担心自己上光荣榜了
 
 ## 目录
 
-+ [食用方法](#食用方法)
-  + [登录或注册Github](#1登录或注册github)
-  + [Fork本仓库到自己的账号下](#2fork本仓库到自己账号)
-  + [设置Secret](#3设置secret)
-    + [使用密码登录](#使用密码登录)
-    + [使用短信登录](#使用短信登录)
-    + [令牌(Token)登录](#令牌token登录)
-    + [配置微信通知](#配置微信通知)
-  + [启用Action](#4启用action)
++ [快速配置](#快速配置)
+  + [Fork本项目](#fork本项目)
+  + [注册Server酱](#注册server酱)
+  + [设置Secrets](#设置secrets)
+  + [获取AppID](#获取appid)
+  + [测试打卡](#测试打卡)
 + [命令行工具](#命令行工具)
+  + [APPID工具](#APPID工具)
+  + [消息测试工具](#消息测试工具)
   + [配置向导](#配置向导)
   + [启动打卡](#启动打卡)
 + [Secret配置](#secret配置)
 
-## 食用方法
+## 快速配置
 
-### 1.登录或注册Github
+### Fork本项目
 
-本程序依赖Github Action运行，因此需要注册Github账号，如果没有请注册一个。
+![Fork](docs/Fork.jpg)
 
-### 2.Fork本仓库到自己账号
+### 注册Server酱
 
-你改不了别人的项目，所以需要Fork复制本仓库以调整参数。
+Server酱用于配置微信通知和获取参数。
+可以用Github账号登录，很快啊，啪一下就登录了。
+然后绑定你的微信，顺便发个消息试试。
 
-### 3.设置Secret
-
-本项目使用Secret存储账号登录配置，支持密码、短信、令牌登录。
->账号密码等敏感信息不能直接写在代码中，很危险，切记！
-
-#### 使用密码登录
-
-```shell
-TYPE = password
-USERNAME = <用户名/手机号>
-PASSWORD = <你的密码>
-```
-
-#### 使用短信登录
-
-这个登录方式在服务器上没有意义，因为要输验证码，本地运行配置向导时最终会转换为token登录。
-
-```shell
-TYPE=sms
-USERNAME = <用户名/手机号>
-```
-
-#### 令牌(Token)登录
-
-如果你会抓包并且拿到了token，或者是通过账号密码、短信登录拿到的token，那么你可以选择token登录。
-
-```shell
-TYPE = token
-TOKEN = <令牌字符串>
-```
-
-注意：目前尚不清楚令牌的有效时长，若短时间内频繁失效请换用账号密码登录。
-UP：经测试，token绑定机器IP，建议使用密码登录。
-
-#### 配置微信通知
-
-目前程序做了server酱的适配，可以利用server酱给手机发送通知。
-配置之前需要注册server酱并获取`SCKEY`，然后将其添加到Secret中
 [点击注册](https://sc.ftqq.com/3.version)
 
-```shell
-SCKEY = <你的SCKEY>
-```
+登录注册之后可以看到你的`SCKEY`，记下来等下一步用。
 
-### 4.启用Action
+### 设置Secrets
 
-Action默认是关闭的，需要手动启用，启用之后即可定时运行代码。
+![Secret](docs/Secret.jpg)
+
+建议设置的值如下
+
+|名称|值|
+|-|-|
+|TYPE|password|
+|USERNAME|用户名/手机号|
+|PASSWORD|密码|
+|SEED|随便输个数字|
+|APP_ID|打卡项目ID，暂时不填，等下一步获取|
+|SCKEY|上一步拿到的SCKEY|
+
+### 获取AppID
+
+注意：Actions功能可能默认关闭，如果看不到这个功能请到设置看一下启用。
+
+![RunAction](docs/RunAction.jpg)
+
+点击绿色按钮运行GetAppID程序，运行完成后手机上应该收到一条通知，类似这样：
+
+|打卡项目|APP_ID|
+| - | - |
+|教职工打卡|teacher|
+|学生打卡|student|
+|其他人|other|
+
+看好你所在的组，记下后面的`APP_ID`，回到第三步将`APP_ID`添加到Secrets中
+
+### 测试打卡
+
+所有参数设置完毕，接下来运行打卡程序进行测试
+![测试打卡](docs/Run.jpg)
+如果配置正确，手机上应该收到打卡成功的通知，否则可能会收到异常报告。
+如果`SCKEY`没有配置或错误，结果会输出到Action日志中。
 
 ## 命令行工具
 
 本程序提供两个命令用于使用，分别是启动打卡和配置向导。
 运行命令前先克隆仓库到本地，并安装node.js 14.x版本（测试平台）
 然后运行`npm install`命令安装项目依赖
+
+### APPID工具
+
+获取打卡项目ID
+
+```sh
+npm run appId
+```
+
+### 消息测试工具
+
+测试你的Server酱正不正常。
+
+```sh
+npm run send <标题> <内容>
+```
 
 ### 配置向导
 
@@ -156,7 +167,7 @@ npm run main
     PROXY_PORT:number,
     
     /* 完美校园版本，默认10525101*/
-    APP_VERSION:number
+    APP_VERSION:number,
 
     /* 成功提示信息 */
     TEXT_OK:string
