@@ -81,8 +81,9 @@ export class Helper extends API{
     }
 
     async run(){
-        const data=await this.getLastData(config.APP_ID);
-        const {areaStr,customerid,deptStr,phonenum,stuNo,username,userid,cusTemplateRelations}=await this.handleData(data);
+        const raw=await this.getLastData(config.APP_ID);
+        const data=await this.handleData(raw);
+        const {areaStr,customerid,deptStr,phonenum,stuNo,username,userid,cusTemplateRelations}=data;
         const updatainfo=cusTemplateRelations.map(({propertyname,value})=>({propertyname,value}));
         const submit:SubmitData={
             areaStr,customerid,deptStr,phonenum,stuNo,userid,username,
@@ -93,6 +94,7 @@ export class Helper extends API{
             updatainfo,
         };
         await this.submitData(submit);
+        return data;
     }
     setup(){
 

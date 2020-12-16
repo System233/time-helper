@@ -9,8 +9,10 @@ import {Helper, SendMessage, Session, config} from '../'
             token:config.TOKEN
         });
         const helper= new Helper(token);
-        await helper.run();
-        await SendMessage(config.TEXT_OK,new Date().toLocaleString());
+        const data=await helper.run();
+        const temp=data.cusTemplateRelations.find(x=>x.assembltype=="Temperature");
+        const message=[new Date().toLocaleString(),`体温：${temp.value}℃`].join('  \n');
+        await SendMessage(config.TEXT_OK,message);
     }catch(error){
         await SendMessage(error.message,['```js',error.stack,'```'].join('\n'));
         process.exit(-1);
