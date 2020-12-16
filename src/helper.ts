@@ -74,7 +74,7 @@ export class Helper extends API{
         data.cusTemplateRelations.forEach(item=>{
             if(item.assembltype=="Temperature"){
                 const [min,max]=config.TEMP_RANGE.split('-').map(parseFloat).sort();
-                item.value=(min+(Math.random()*(max+min))).toFixed(1);
+                item.value=(min+(Math.random()*(max-min))).toFixed(1);
             }
         });
         return data;
