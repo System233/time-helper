@@ -1,9 +1,7 @@
-name: "Time Helper"
+name: "Get Token"
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 0 * * *"
 
 jobs:
   build:
@@ -14,10 +12,10 @@ jobs:
       with:
         node-version: '14.x'
 
-    - name: Run Task
+    - name: Get Token
       run: |
           npm install
-          npm run main
+          npm run token
       env:
         USER_AGENT: ${{ secrets.USER_AGENT }}
         USER_AGENT2: ${{ secrets.USER_AGENT2 }}

@@ -2,8 +2,6 @@ name: "Get AppId"
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 0 * * *"
 
 jobs:
   build:
@@ -31,8 +29,9 @@ jobs:
         SYSTEM_TYPE: ${{ secrets.SYSTEM_TYPE }}
         SCKEY: ${{ secrets.SCKEY }}
         DEVICE_ID: ${{ secrets.DEVICE_ID }}
-        SEED: ${{ secrets.SEED }}
+        DEVICE_SEED: ${{ secrets.DEVICE_SEED }}
         PROXY_HOST: ${{ secrets.PROXY_HOST }}
         PROXY_PORT: ${{ secrets.PROXY_PORT }}
         APP_VERSION: ${{ secrets.APP_VERSION }}
         TEXT_OK: ${{ secrets.TEXT_OK }}
+        TEMP_RANGE: ${{ secrets.TEMP_RANGE }}

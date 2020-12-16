@@ -1,6 +1,6 @@
-import {Helper,setupConfig,Session, SendMessageWithKey, getAppIdFromUrl} from './src'
+import {Helper,Session, SendMessageWithKey, getAppIdFromUrl} from '../'
 import inquirer from 'inquirer'
-import qs from 'querystring'
+
 (async()=>{
     console.log('\x1B[36m%s\x1B[0m','[打卡参数配置向导]');
     const ss=await Session.create();

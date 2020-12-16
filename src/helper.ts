@@ -70,9 +70,19 @@ export class API{
 
 export class Helper extends API{
     
+    handleData(data:LastSubmitData){
+        data.cusTemplateRelations.forEach(item=>{
+            if(item.assembltype=="Temperature"){
+                const [min,max]=config.TEMP_RANGE.split('-').map(parseFloat).sort();
+                item.value=(min+(Math.random()*(max+min))).toFixed(1);
+            }
+        });
+        return data;
+    }
 
     async run(){
-        const {areaStr,customerid,deptStr,phonenum,stuNo,username,userid,cusTemplateRelations}=await this.getLastData(config.APP_ID);
+        const data=await this.getLastData(config.APP_ID);
+        const {areaStr,customerid,deptStr,phonenum,stuNo,username,userid,cusTemplateRelations}=await this.handleData(data);
         const updatainfo=cusTemplateRelations.map(({propertyname,value})=>({propertyname,value}));
         const submit:SubmitData={
             areaStr,customerid,deptStr,phonenum,stuNo,userid,username,

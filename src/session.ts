@@ -94,7 +94,7 @@ export class Session{
     }
     
     generateIMEI(){
-        let seed=config.SEED;
+        let seed=config.DEVICE_SEED;
         const rand=()=>(seed = ( seed * 9301 + 49297 ) % 233280)/ ( 233280.0 );
         const tac='86';
         const code=[...Array(12)].map(()=>rand()*10|0).join('');

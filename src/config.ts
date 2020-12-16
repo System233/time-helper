@@ -19,6 +19,9 @@ interface Config{
     
     /* 密码（登录类型为password时使用） */
     PASSWORD:string,
+
+    /* 体温范围，例：35.6-36.9  */
+    TEMP_RANGE:string;
     
     /* 打卡项目 */
     APP_ID:string,
@@ -42,7 +45,7 @@ interface Config{
     DEVICE_ID:string,
     
     /* 设备ID随机种子，未设置`DEVICE_ID`时使用 */
-    SEED:number,
+    DEVICE_SEED:number,
 
     /* 代理主机 */
     PROXY_HOST:string,
@@ -56,7 +59,7 @@ interface Config{
     /* 成功提示信息 */
     TEXT_OK:string
 }
-const config:Config= {
+export const config:Config= {
     USER_AGENT: 'Dalvik/2.1.0 (Linux; U; Android 9; INE-AL00 Build/HUAWEIINE-AL00)',
     USER_AGENT2:'Mozilla/5.0 (Linux; Android 9; INE-AL00) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.127 Mobile Safari/537.36 Wanxiao/5.2.5',
     TYPE:null,
@@ -70,11 +73,12 @@ const config:Config= {
     SYSTEM_TYPE:'android',
     SCKEY:null,
     DEVICE_ID:null,
-    SEED:Math.random()*0xFFFF0000,
+    DEVICE_SEED:Math.random()*0xFFFF0000,
     PROXY_HOST:null,
     PROXY_PORT:null,
     APP_VERSION:10525101,
-    TEXT_OK:'芜湖~打卡完成！'
+    TEXT_OK:'芜湖~打卡完成！',
+    TEMP_RANGE:"35.4-36.9"
 }
 export function setupConfig(data:{[key in keyof typeof config]?:string}){
     return Object.assign(config,data);

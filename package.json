@@ -4,10 +4,11 @@
   "description": "完美校园打卡机",
   "main": "index.ts",
   "scripts": {
-    "main": "npx ts-node index.ts",
-    "appId": "npx ts-node appId.ts",
-    "setup": "npx ts-node setup.ts",
-    "send": "npx ts-node send.ts",
+    "main": "npx ts-node tools/main.ts",
+    "appId": "npx ts-node tools/appId.ts",
+    "setup": "npx ts-node tools/setup.ts",
+    "send": "npx ts-node tools/send.ts",
+    "token": "npx ts-node tools/token.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

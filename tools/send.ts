@@ -1,4 +1,4 @@
-import { SendMessage } from "./src"
+import { SendMessage } from "../"
 
 (async()=>{
     try {

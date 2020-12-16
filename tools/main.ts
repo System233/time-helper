@@ -1,5 +1,4 @@
-import {getAppIdFromUrl, Helper,SendMessage,Session} from './src'
-import config from './src/config'
+import {Helper, SendMessage, Session, config} from '../'
 (async()=>{
     try{
         const ss=await Session.create(config.TYPE=='token'&&config.TOKEN);
@@ -10,15 +9,8 @@ import config from './src/config'
             token:config.TOKEN
         });
         const helper= new Helper(token);
-        const apps=await helper.getApps();
-
-        await SendMessage("APPID列表",
-        [
-            "|打卡项目|APP_ID|",
-            "| - | - |",
-            ...apps.map(app=>`|${app.name}|${getAppIdFromUrl(app.url)}|`)
-        ].join('\n'));
-        
+        await helper.run();
+        await SendMessage(config.TEXT_OK,new Date().toLocaleString());
     }catch(error){
         await SendMessage(error.message,['```js',error.stack,'```'].join('\n'));
         process.exit(-1);
