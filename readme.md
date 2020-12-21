@@ -8,26 +8,47 @@
 MM再也不用担心自己上光荣榜了  
 如果此程序对你有用，右上给个一键三连吧😂（误）
 
+## 功能
+
+- [x] 登录
+  - [x] 密码登录（建议）
+  - [x] 验证码登录
+  - [x] Token登录
+- [x] 打卡
+  - [x] 使用最后一次打卡数据
+  - [x] 随机体温范围
+  - [ ] 随机定位范围
+  - [ ] 自动填写表单
+  - [ ] 启动时间配置（[手动调节]()）
+- [x] 消息通知
+  - [x] Server酱微信通知
+  - [x] 控制台输出
+- [x] Actions工具
+  - [x] 在线参数获取
+  - [x] 消息发送测试
+
 ## 目录
 
-+ [快速配置](#快速配置)
-  + [准备工作](#准备工作)
-  + [Fork本项目](#fork本项目)
-  + [注册Server酱](#注册server酱)
-  + [设置Secrets](#设置secrets)
-  + [获取AppID](#获取appid)
-  + [测试打卡](#测试打卡)
-  + [令牌登录(可选)](#令牌登录)
-+ [命令行工具](#命令行工具)
-  + [APPID工具](#APPID工具)
-  + [消息测试工具](#消息测试工具)
-  + [配置向导](#配置向导)
-  + [启动打卡](#启动打卡)
-+ [Secret配置](#secret配置)
+- [快速配置](#快速配置)
+  - [准备工作](#准备工作)
+  - [Fork本项目](#fork本项目)
+  - [注册Server酱](#注册server酱)
+  - [设置Secrets](#设置secrets)
+  - [获取AppID](#获取appid)
+  - [测试打卡](#测试打卡)
+  - [运行时间配置](#运行时间配置)
+  - [令牌登录(可选)](#令牌登录)
+- [命令行工具](#命令行工具)
+  - [APPID工具](#APPID工具)
+  - [消息测试工具](#消息测试工具)
+  - [配置向导](#配置向导)
+  - [启动打卡](#启动打卡)
+- [所有Secret配置](#secret配置)
 
 ## 快速开始
 
-教程包含图文内容，如果加载不出图请稍等片刻。
+教程包含图文内容，如果加载不出图请稍等片刻。  
+不需要下载代码，也不用购买服务器，超级白嫖怪。
 
 ### 准备工作
 
@@ -55,7 +76,6 @@ Server酱用于配置微信通知和获取参数。
 
 配置程序运行参数，支持参数列表见[Secret配置](#secret配置)  
 位置：`Settings`=>`Secrets`=>`New reposltory secret`  
-<a href="./settings/secrets/actions">点击设置Secrets</a>  
 ![Secret](docs/secret.jpg)
 
 建议的配置值如下
@@ -73,7 +93,6 @@ Server酱用于配置微信通知和获取参数。
 
 注意：Actions功能可能默认关闭，如果关闭就先启用一下（怎么启用我忘了）。  
 位置：`Actions`=>`Get AppId`=>`Run workflow`=>`Run workflow`  
-<a href="./settings/secrets/actions">获取AppID</a>  
 ![RunAction](docs/RunAction.jpg)
 点击绿色按钮运行GetAppID程序，运行完成后手机上应该收到一条通知，类似这样：  
 
@@ -92,6 +111,36 @@ Server酱用于配置微信通知和获取参数。
 ![测试打卡](docs/Run.jpg)
 如果配置正确，手机上应该收到打卡成功的通知，否则可能会收到异常报告。  
 如果`SCKEY`没有配置或错误，结果会输出到Action日志中。  
+
+### 运行时间配置
+
+运行时间暂时无法通过参数配置，只能通过修改仓库中的[.github/workflows/timer.yml](.github/workflows/timer.yml)代码来完成  
+找到`timer.yml`中的如下位置
+
+```yml
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+    - cron: "0 4 * * *"
+```
+
+其中每一行`cron`都代表一个启动时间，[点击查看](https://docs.github.com/cn/free-pro-team@latest/actions/reference/events-that-trigger-workflows#%E8%AE%A1%E5%88%92)详细`cron`配置文档。
+
+```js
+┌───────────── 分钟 (0 - 59)
+│ ┌───────────── 小时 (0 - 23)
+│ │ ┌───────────── 日期 (1 - 31)
+│ │ │ ┌───────────── 月份 (1 - 12 或 JAN-DEC)
+│ │ │ │ ┌───────────── 星期 (0 - 6 或 SUN-SAT)
+│ │ │ │ │                                   
+│ │ │ │ │
+│ │ │ │ │
+* * * * *
+```
+
+Github的cron时区为UTC+0，而我们是UTC+8，因此我们的时间需要减去8后才是cron中的时间。  
+对于配置`- cron: "0 4 * * *"`，其运行时间为UTC+0的凌晨4点0分，也就是我们UTC+8时区的中午12点整，实际运行时间会因服务器排队而延迟。
 
 ### 令牌登录
 
@@ -161,7 +210,7 @@ npm run main
 |TOKEN|string||令牌，根据教程获取|
 |APP_ID|string||打卡项目ID，根据教程获取|
 |TEMP_RANGE|string|35.4-36.9|体温范围（可选）|
-|SCKEY|string||Server酱SCKEY（可选）|
+|SCKEY|string||Server酱SCKEY（建议）|
 |TEXT_OK|string|芜湖~打卡完成！|成功提示信息（可选）|
 |USER_AGENT|string|...|登录使用的UA（可选）|
 |USER_AGENT2|string|...|打卡使用的UA（可选）|
