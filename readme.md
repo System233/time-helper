@@ -11,12 +11,13 @@ MM再也不用担心自己上光荣榜了
 ## 目录
 
 + [快速配置](#快速配置)
+  + [准备工作](#准备工作)
   + [Fork本项目](#fork本项目)
   + [注册Server酱](#注册server酱)
   + [设置Secrets](#设置secrets)
   + [获取AppID](#获取appid)
   + [测试打卡](#测试打卡)
-  + [令牌登录](#令牌登录)
+  + [令牌登录(可选)](#令牌登录)
 + [命令行工具](#命令行工具)
   + [APPID工具](#APPID工具)
   + [消息测试工具](#消息测试工具)
@@ -24,11 +25,20 @@ MM再也不用担心自己上光荣榜了
   + [启动打卡](#启动打卡)
 + [Secret配置](#secret配置)
 
-## 快速配置
+## 快速开始
+
+教程包含图文内容，如果加载不出图请稍等片刻。
+
+### 准备工作
+
+1. 下载完美校园app并登录账号，完成一次打卡，之后的自动打卡依赖本次打卡所填写的数据。
+2. 注册GitHub账号，程序运行在GitHub服务器。
 
 ### Fork本项目
 
 点击页面右上角的`Fork`按钮，将仓库复制到自己账号  
+之后的操作全部在Fork后的仓库中进行  
+[点击Fork](https://github.com/System233/time-helper/fork)
 ![Fork](docs/Fork.jpg)
 
 ### 注册Server酱
@@ -44,7 +54,9 @@ Server酱用于配置微信通知和获取参数。
 ### 设置Secrets
 
 配置程序运行参数，支持参数列表见[Secret配置](#secret配置)  
-位置：`Settings`=>`Secrets`=>`New reposltory secret`
+位置：`Settings`=>`Secrets`=>`New reposltory secret`  
+[点击设置Secrets](./time-helper/settings/secrets/actions)  
+<a src="./settings/secrets/actions">点击设置Secrets</a>  
 ![Secret](docs/secret.jpg)
 
 建议的配置值如下
@@ -54,7 +66,7 @@ Server酱用于配置微信通知和获取参数。
 |TYPE|password|
 |USERNAME|用户名/手机号|
 |PASSWORD|密码|
-|SEED|随便输个数字|
+|DEVICE_SEED|随便输个数字|
 |APP_ID|打卡项目ID，暂时不填，等下一步获取|
 |SCKEY|上一步拿到的SCKEY|
 
@@ -62,6 +74,7 @@ Server酱用于配置微信通知和获取参数。
 
 注意：Actions功能可能默认关闭，如果关闭就先启用一下（怎么启用我忘了）。  
 位置：`Actions`=>`Get AppId`=>`Run workflow`=>`Run workflow`  
+<a src="./settings/secrets/actions">获取AppID</a>  
 ![RunAction](docs/RunAction.jpg)
 点击绿色按钮运行GetAppID程序，运行完成后手机上应该收到一条通知，类似这样：  
 
@@ -84,7 +97,7 @@ Server酱用于配置微信通知和获取参数。
 ### 令牌登录
 
 更新：测试失败,此模式在Github服务器上不可用。
-  
+
 ```markdown
 每天打卡都登录可能有点奇怪，因此程序提供了令牌免登录功能。 
 经过前几步配置并正常打卡后，用同样的步骤运行Actions中的`Get Token`程序  
@@ -139,7 +152,7 @@ npm run main
 ## Secret配置
 
 这里包含了所有支持在Secret中配置的字段。  
-建议设置`SEED`或`DEVICE_ID`字段来固定设备ID。
+建议设置`DEVICE_SEED`或`DEVICE_ID`字段来固定设备ID。
 
 |名称|类型/可选值|默认值|说明|
 |-|-|-|-|
