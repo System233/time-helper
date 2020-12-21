@@ -59,7 +59,7 @@ MM再也不用担心自己上光荣榜了
 
 点击页面右上角的`Fork`按钮，将仓库复制到自己账号  
 之后的操作全部在Fork后的仓库中进行  
-[点击Fork](https://github.com/System233/time-helper/fork)
+[点击Fork](https://github.com/System233/time-helper/fork)  
 ![Fork](docs/Fork.jpg)
 
 ### 注册Server酱
