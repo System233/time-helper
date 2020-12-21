@@ -55,8 +55,7 @@ Server酱用于配置微信通知和获取参数。
 
 配置程序运行参数，支持参数列表见[Secret配置](#secret配置)  
 位置：`Settings`=>`Secrets`=>`New reposltory secret`  
-[点击设置Secrets](./time-helper/settings/secrets/actions)  
-<a src="./settings/secrets/actions">点击设置Secrets</a>  
+<a href="./settings/secrets/actions">点击设置Secrets</a>  
 ![Secret](docs/secret.jpg)
 
 建议的配置值如下
@@ -74,7 +73,7 @@ Server酱用于配置微信通知和获取参数。
 
 注意：Actions功能可能默认关闭，如果关闭就先启用一下（怎么启用我忘了）。  
 位置：`Actions`=>`Get AppId`=>`Run workflow`=>`Run workflow`  
-<a src="./settings/secrets/actions">获取AppID</a>  
+<a href="./settings/secrets/actions">获取AppID</a>  
 ![RunAction](docs/RunAction.jpg)
 点击绿色按钮运行GetAppID程序，运行完成后手机上应该收到一条通知，类似这样：  
 
