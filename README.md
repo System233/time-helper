@@ -1,4 +1,4 @@
-# 完美校园打卡机
+# 完美校园自动打卡机
 
 ![Time Helper](https://github.com/System233/time-helper/workflows/Time%20Helper/badge.svg)
 ![Get AppId](https://github.com/System233/time-helper/workflows/Get%20AppId/badge.svg)
@@ -6,20 +6,34 @@
 ![ServerChan Message Test](https://github.com/System233/time-helper/workflows/ServerChan%20Message%20Test/badge.svg)
 
 MM再也不用担心自己上光荣榜了  
-如果此程序对你有用，右上给个一键三连吧😂（误）
+如果此程序对你有用，右上给个一键三连吧😂（雾）
 
-## 功能
+## ❗插播公告
+
+>2021/1/24
+
+[提示在新设备上登录，需要验证码的解决方案](https://github.com/System233/time-helper/issues/2)
+鉴于完美校园对新设备做出登录限制，必须通过验证码登录，我们的登录策略也要做出相应调整。  
+此前配置过`DEVICE_SEED`或`DEVICE_ID`参数的小伙伴应该不受此限制影响。
+由于GitHub Action不支持在线输入验证码，Server酱也不支持从微信反向发送参数，因此在线自助配置已失效。  
+
+解决方案：在执行到本页的`设置Secrets`步骤时，通过上面的链接方法得到`DEVICE_SEED`参数，将其填入Secrets列表，再继续本页的步骤。  
+之前已经配置过却也遇到这个问题的小伙伴，只需按照步骤更新`DEVICE_SEED`值即可。  
+
+使用之前可以逛逛[Issues区](https://github.com/System233/time-helper/issues)，查看项目的最新情况，因为代码里的自述更新起来比较麻烦，所以不涉及代码更新的消息我都丢Issues里了，遇到问题在那里也可以提出新问题。
+
+## 📌功能
 
 - [x] 登录
   - [x] 密码登录（建议）
-  - [x] 验证码登录
+  - [x] 验证码登录（首次配置需要）
   - [x] Token登录
 - [x] 打卡
   - [x] 使用最后一次打卡数据
   - [x] 随机体温范围
   - [ ] 随机定位范围
   - [ ] 自动填写表单
-  - [ ] 启动时间配置（[手动调节]()）
+  - [ ] 启动时间配置（[手动调节](#运行时间配置)）
 - [x] 消息通知
   - [x] Server酱微信通知
   - [x] 控制台输出
@@ -27,7 +41,7 @@ MM再也不用担心自己上光荣榜了
   - [x] 在线参数获取
   - [x] 消息发送测试
 
-## 目录
+## 🚀目录
 
 - [快速配置](#快速配置)
   - [准备工作](#准备工作)
@@ -48,7 +62,7 @@ MM再也不用担心自己上光荣榜了
 ## 快速配置
 
 教程包含图文内容，如果加载不出图请稍等片刻。  
-不需要下载代码，也不用购买服务器，超级白嫖怪。
+~~不需要下载代码~~，也不用购买服务器，超级白嫖怪。
 
 ### 准备工作
 
@@ -87,7 +101,7 @@ Server酱用于配置微信通知和获取参数。
 |TYPE|password|
 |USERNAME|用户名/手机号|
 |PASSWORD|密码|
-|DEVICE_SEED|随便输个数字|
+|DEVICE_SEED|[通过此方法获取](https://github.com/System233/time-helper/issues/2)|
 |APP_ID|打卡项目ID，暂时不填，等下一步获取|
 |SCKEY|上一步拿到的SCKEY|
 
@@ -144,6 +158,8 @@ on:
 Github的cron时区为UTC+0，而我们是UTC+8，因此我们的时间需要减去8后才是cron中的时间。  
 对于配置`- cron: "0 4 * * *"`，其运行时间为UTC+0的凌晨4点0分，也就是我们UTC+8时区的中午12点整，实际运行时间会因服务器排队而延迟。
 
+⚠注意：有时打卡会因为网络原因而失败，若发现有失败的情况，建议设置一天打两次卡。
+
 ### 令牌登录
 
 更新：测试失败,此模式在Github服务器上不可用。
@@ -166,6 +182,19 @@ Github的cron时区为UTC+0，而我们是UTC+8，因此我们的时间需要减
 
 运行命令前先克隆仓库到本地，并安装node.js 14.x版本（测试平台）  
 然后运行`npm install`命令安装项目依赖
+运行参数通过环境变量传递，例如设置`DEVICE_SEED`参数：
+
+bash
+
+```sh
+export DEVICE_SEED=6666
+```
+
+cmd
+
+```cmd
+set DEVICE_SEED=6666
+```
 
 ### APPID工具
 
@@ -202,7 +231,8 @@ npm run main
 ## Secret配置
 
 这里包含了所有支持在Secret中配置的字段。  
-建议设置`DEVICE_SEED`或`DEVICE_ID`字段来固定设备ID。
+~~建议设置`DEVICE_SEED`或`DEVICE_ID`字段来固定设备ID~~。
+必须设置`DEVICE_SEED`或`DEVICE_ID`字段来固定设备ID。
 
 |名称|类型/可选值|默认值|说明|
 |-|-|-|-|
@@ -211,6 +241,8 @@ npm run main
 |PASSWORD|string||密码|
 |TOKEN|string||令牌，根据教程获取|
 |APP_ID|string||打卡项目ID，根据教程获取|
+|DEVICE_ID|string||设备ID（二选一）|
+|DEVICE_SEED|number|`Math.random()*0xFFFF0000`|设备ID生成种子（二选一）|
 |TEMP_RANGE|string|35.4-36.9|体温范围（可选）|
 |SCKEY|string||Server酱SCKEY（建议）|
 |TEXT_OK|string|芜湖~打卡完成！|成功提示信息（可选）|
@@ -220,8 +252,6 @@ npm run main
 |MODEL_CODE|string|INE-AL00|设备代号（可选）|
 |SYSTEM_VERSION|number|9|系统版本（可选）|
 |SYSTEM_TYPE|android|android|系统类型（可选）|
-|DEVICE_ID|string||设备ID（可选）|
-|DEVICE_SEED|number|`Math.random()*0xFFFF0000`|设备ID生成种子（可选）|
 |PROXY_HOST|string||代理主机（可选）|
 |PROXY_PORT|number||代理端口（可选）|
 |APP_VERSION|number|10525101|完美校园版本（可选）|
