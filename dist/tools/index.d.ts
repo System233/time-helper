@@ -1,6 +1,6 @@
-export declare function main(): Promise<typeof import("./main")>;
-export declare function send(): Promise<typeof import("./send")>;
-export declare function setup(): Promise<typeof import("./setup")>;
-export declare function token(): Promise<typeof import("./token")>;
-export declare function appId(): Promise<typeof import("./appId")>;
+export declare const main: () => Promise<void>;
+export declare const token: () => Promise<void>;
+export declare const appId: () => Promise<void>;
+export declare const send: () => Promise<void>;
+export declare const setup: () => Promise<void>;
 //# sourceMappingURL=index.d.ts.map
