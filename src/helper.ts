@@ -79,7 +79,6 @@ export class Helper extends API{
         });
         return data;
     }
-
     async run(){
         const raw=await this.getLastData(config.APP_ID);
         const data=await this.handleData(raw);
@@ -95,9 +94,6 @@ export class Helper extends API{
         };
         await this.submitData(submit);
         return data;
-    }
-    setup(){
-
     }
 }
 

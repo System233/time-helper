@@ -1,4 +1,4 @@
-import { Session, config, SendMessageWithKey } from "../";
+import { Session, config, SendMessageWithKey } from "../src";
 
 (async()=>{
     try {
@@ -7,7 +7,7 @@ import { Session, config, SendMessageWithKey } from "../";
         }
         const ss=await Session.create(config.TYPE=='token'&&config.TOKEN);
         const token=await ss.authenticate({
-            type:config.TYPE as any,
+            type:config.TYPE,
             username:config.USERNAME,
             password:config.PASSWORD,
             token:config.TOKEN
@@ -25,4 +25,4 @@ import { Session, config, SendMessageWithKey } from "../";
         console.error(error);
         process.exit(-1);
     }
-})();
+})().catch(console.error);

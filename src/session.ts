@@ -158,6 +158,7 @@ export class Session{
     }
     async authenticateWithSMS(option:AuthData){
         await this.sendSMS(option);
+        let i=3;
         do{
             try {
                 
@@ -168,7 +169,7 @@ export class Session{
                 console.error(error.message);
             }
             
-        }while(1);
+        }while(i--);
     }
     
     async authenticateWithPWD(option:AuthData){

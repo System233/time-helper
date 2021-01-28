@@ -1,4 +1,4 @@
-import {Helper,Session, SendMessageWithKey, getAppIdFromUrl} from '../'
+import {Helper,Session, SendMessageWithKey, getAppIdFromUrl} from '../src'
 import inquirer from 'inquirer'
 
 (async()=>{
@@ -112,4 +112,4 @@ import inquirer from 'inquirer'
     if(config.TYPE=="token"){
         console.warn('\x1B[33m%s\x1B[0m','注意：当前配置使用令牌进行签到，但目前尚不清楚令牌的有效期。若令牌在短时间内频繁失效请换用账号密码登录。')
     }
-})();
+})().catch(console.error);

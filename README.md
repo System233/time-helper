@@ -15,7 +15,7 @@ MM再也不用担心自己上光荣榜了
 [提示在新设备上登录，需要验证码的解决方案](https://github.com/System233/time-helper/issues/2)
 
 鉴于完美校园对新设备做出登录限制，必须通过验证码登录，我们的登录策略也要做出相应调整。  
-此前配置过`DEVICE_SEED`或`DEVICE_ID`参数的小伙伴应该不受此限制影响。
+此前配置过`DEVICE_SEED`或`DEVICE_ID`参数的小伙伴应该不受此限制影响。  
 由于GitHub Action不支持在线输入验证码，Server酱也不支持从微信反向发送参数，因此在线自助配置已失效。  
 
 解决方案：在执行到本页的`设置Secrets`步骤时，通过上面的链接方法得到`DEVICE_SEED`参数，将其填入Secrets列表，再继续本页的步骤。  
@@ -119,7 +119,8 @@ Server酱用于配置微信通知和获取参数。
 |学生打卡|student|
 |其他人|other|
 
-看好你所在的组，记下后面的`APP_ID`，回到[第三步:设置Secrets](#设置secrets)将`APP_ID`添加到Secrets中
+看好你所在的组，记下后面的`APP_ID`，回到[第三步:设置Secrets](#设置secrets)将`APP_ID`添加到Secrets中  
+如果AppID列表是空的，尝试此ID：`pneumonia`。
 
 ### 测试打卡
 

@@ -4,7 +4,7 @@ export interface FieldItemDto{
     decription: string,
     
     value: string
-    required: boolean,
+    required: string,
     propertyname: string,
 }
 export interface DepartItemDto{

@@ -17,8 +17,8 @@ export async function SendMessage(text:string,desp?:string){
         const resp= await SendMessageWithKey(config.SCKEY,{text,desp});
         return resp.data;
     }else{
-        
-        console.log(text,desp||'');
+        console.log(text);
+        console.log(desp||'');
     }
 }
 

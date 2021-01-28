@@ -1,9 +1,9 @@
-import {getAppIdFromUrl, Helper,SendMessage,Session, config} from '../'
+import {getAppIdFromUrl, Helper,SendMessage,Session, config} from '../src'
 (async()=>{
     try{
         const ss=await Session.create(config.TYPE=='token'&&config.TOKEN);
         const token=await ss.authenticate({
-            type:config.TYPE as any,
+            type:config.TYPE,
             username:config.USERNAME,
             password:config.PASSWORD,
             token:config.TOKEN
@@ -23,4 +23,4 @@ import {getAppIdFromUrl, Helper,SendMessage,Session, config} from '../'
         process.exit(-1);
     }
     
-})();
+})().catch(console.error);

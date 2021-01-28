@@ -1,4 +1,4 @@
-import { SendMessage } from "../"
+import { SendMessage } from "../src"
 
 (async()=>{
     try {
@@ -11,4 +11,4 @@ import { SendMessage } from "../"
         console.error(error);
         process.exit(-1);
     }
-})();
+})().catch(console.error);

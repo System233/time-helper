@@ -1,8 +1,17 @@
 {
     "compilerOptions": {
+        "outDir": "dist",
+        "sourceMap": true,
+        "declaration": true,
+        "declarationDir": "dist",
+        "declarationMap": true,
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
         "strict": false,
         "target": "ES2020",
+        "moduleResolution": "node",
         "module": "CommonJS"
-    }
+    },
+    "exclude": ["node_modules","dist"]
 }
