@@ -56,7 +56,7 @@ class Session {
         }, e => Promise.reject(e));
         this.http.interceptors.response.use(resp => {
             if (!resp.data.result_) {
-                throw new Error(resp.data.message_);
+                return Promise.reject(new Error(resp.data.message_));
             }
             else if (resp.data.data) {
                 resp.data.data = JSON.parse(this.decryptDES(resp.data.data));

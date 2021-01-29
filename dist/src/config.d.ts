@@ -18,6 +18,10 @@ interface Config {
     PROXY_PORT: number;
     APP_VERSION: number;
     TEXT_OK: string;
+    QMSG_KEY: string;
+    QMSG_QQ: string;
+    MSG_KEY: string;
+    MSG_URL: string;
 }
 export declare const config: Config;
 export declare function setupConfig(data: {
@@ -42,6 +46,10 @@ export declare function setupConfig(data: {
     PROXY_PORT?: string;
     APP_VERSION?: string;
     TEXT_OK?: string;
+    QMSG_KEY?: string;
+    QMSG_QQ?: string;
+    MSG_KEY?: string;
+    MSG_URL?: string;
 };
 export declare function getProxyInfo(): {
     host: string;

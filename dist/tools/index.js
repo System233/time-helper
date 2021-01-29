@@ -60,8 +60,8 @@ const main = async () => {
         await sendResult(data);
     }
     catch (error) {
-        await src_1.SendMessage(error.message, ['```js', error.stack, '```'].join('\n'));
-        process.exit(-1);
+        await src_1.SendMessage(error.message, ['```js', error.stack, '```'].join('\n'), true);
+        process.exitCode = -1;
     }
 };
 exports.main = main;
@@ -83,8 +83,8 @@ const token = async () => {
         ].join('\n'));
     }
     catch (error) {
-        await src_1.SendMessage(error.message, ['```js', error.stack, '```'].join('\n'));
-        process.exit(-1);
+        await src_1.SendMessage(error.message, ['```js', error.stack, '```'].join('\n'), true);
+        process.exitCode = -1;
     }
 };
 exports.token = token;
@@ -106,22 +106,18 @@ const appId = async () => {
         ].join('\n'));
     }
     catch (error) {
-        await src_1.SendMessage(error.message, ['```js', error.stack, '```'].join('\n'));
-        process.exit(-1);
+        await src_1.SendMessage(error.message, ['```js', error.stack, '```'].join('\n'), true);
+        process.exitCode = -1;
     }
 };
 exports.appId = appId;
 const send = async () => {
     try {
-        const data = await src_1.SendMessage(process.argv[2], process.argv.slice(3).join());
-        if (data && data.errno) {
-            console.error(`Error(${data.errno})：`, data.errmsg);
-            process.exit(data.errno);
-        }
+        await src_1.SendMessage(process.argv[2], process.argv.slice(3).join(), true);
     }
     catch (error) {
         console.error(error);
-        process.exit(-1);
+        process.exitCode = -1;
     }
 };
 exports.send = send;
@@ -217,7 +213,7 @@ const setup = async () => {
             name: 'SCKEY',
             message: 'Server酱SCKEY(不需要则跳过)',
             validate: async (value, anwser) => {
-                const resp = await src_1.SendMessageWithKey(value, { text: '测试标题', desp: '测试内容' });
+                const resp = await src_1.SendMessageWithSC(value, { text: '测试标题', desp: '测试内容' });
                 return resp.data.error_message || true;
             }
         }
