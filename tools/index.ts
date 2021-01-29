@@ -1,6 +1,6 @@
 
 import inquirer from 'inquirer';
-import {getAppIdFromUrl, Helper,SendMessage,Session, config, SendMessageWithKey, FieldItemDto, LastSubmitData} from '../src'
+import {getAppIdFromUrl, Helper,SendMessage,Session, config, SendMessageWithSC, FieldItemDto, LastSubmitData} from '../src'
 
 
 
@@ -58,8 +58,8 @@ export const main=async()=>{
         const data=await helper.run();
         await sendResult(data);
     }catch(error){
-        await SendMessage(error.message,['```js',error.stack,'```'].join('\n'));
-        process.exit(-1);
+        await SendMessage(error.message,['```js',error.stack,'```'].join('\n'),true);
+        process.exitCode=-1
     }
     
 };
@@ -84,8 +84,8 @@ export const token=async()=>{
         ].join('\n'));
         
     }catch(error){
-        await SendMessage(error.message,['```js',error.stack,'```'].join('\n'));
-        process.exit(-1);
+        await SendMessage(error.message,['```js',error.stack,'```'].join('\n'),true);
+        process.exitCode=-1
     }
     
 };
@@ -111,22 +111,18 @@ export const appId=async()=>{
         ].join('\n'));
         
     }catch(error){
-        await SendMessage(error.message,['```js',error.stack,'```'].join('\n'));
-        process.exit(-1);
+        await SendMessage(error.message,['```js',error.stack,'```'].join('\n'),true);
+        process.exitCode=-1
     }
     
 }
 
 export const send=async()=>{
     try {
-        const data=await SendMessage(process.argv[2],process.argv.slice(3).join());
-        if(data&&data.errno){
-            console.error(`Error(${data.errno})：`,data.errmsg);
-            process.exit(data.errno);
-        }
+        await SendMessage(process.argv[2],process.argv.slice(3).join(),true);
     } catch (error) {
         console.error(error);
-        process.exit(-1);
+        process.exitCode=-1
     }
 }
 
@@ -221,7 +217,7 @@ export const setup=async()=>{
                 name:'SCKEY',
                 message:'Server酱SCKEY(不需要则跳过)',
                 validate:async(value,anwser)=>{
-                    const resp=await SendMessageWithKey(value,{text:'测试标题',desp:'测试内容'})
+                    const resp=await SendMessageWithSC(value,{text:'测试标题',desp:'测试内容'})
                     return resp.data.error_message||true;
                 }
             }

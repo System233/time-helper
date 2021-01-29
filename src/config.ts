@@ -58,6 +58,24 @@ interface Config{
 
     /* 成功提示信息 */
     TEXT_OK:string
+
+    /* QMSG KEY https://qmsg.zendee.cn/ */
+    QMSG_KEY:string;
+
+    /* QMSG 指定通知QQ 逗号隔开 */
+    QMSG_QQ:string;
+
+    /* 自定义消息推送KEY */
+    MSG_KEY:string;
+    /* 
+        自定义消息推送URL,只支持GET方法,URL替换参数：{key} {title} {content}
+        
+        示例：
+            server酱：https://sc.ftqq.com/{key}.send?text={title}&desp={content} 
+            QMSG：https://qmsg.zendee.cn/send/{key}?msg={title}%0A{content}
+            PUSH+：https://pushplus.hxtrip.com/send?token={key}&title={title}&content={content}&template=html
+    */
+    MSG_URL:string;
 }
 export const config:Config= {
     USER_AGENT: 'Dalvik/2.1.0 (Linux; U; Android 9; INE-AL00 Build/HUAWEIINE-AL00)',
@@ -72,6 +90,10 @@ export const config:Config= {
     SYSTEM_VERSION:'9',
     SYSTEM_TYPE:'android',
     SCKEY:null,
+    QMSG_KEY:null,
+    QMSG_QQ:null,
+    MSG_KEY:null,
+    MSG_URL:null,
     DEVICE_ID:null,
     DEVICE_SEED:Math.random()*0xFFFF0000,
     PROXY_HOST:null,

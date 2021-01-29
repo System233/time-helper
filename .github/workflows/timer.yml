@@ -38,3 +38,7 @@ jobs:
         APP_VERSION: ${{ secrets.APP_VERSION }}
         TEXT_OK: ${{ secrets.TEXT_OK }}
         TEMP_RANGE: ${{ secrets.TEMP_RANGE }}
+        QMSG_KEY: ${{ secrets.QMSG_KEY }}
+        QMSG_QQ: ${{ secrets.QMSG_QQ }}
+        MSG_URL: ${{ secrets.MSG_URL }}
+        MSG_KEY: ${{ secrets.MSG_KEY }}

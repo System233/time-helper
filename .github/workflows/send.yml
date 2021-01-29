@@ -18,3 +18,7 @@ jobs:
           npm run send 测试标题 测试内容
       env:
         SCKEY: ${{ secrets.SCKEY }}
+        QMSG_KEY: ${{ secrets.QMSG_KEY }}
+        QMSG_QQ: ${{ secrets.QMSG_QQ }}
+        MSG_URL: ${{ secrets.MSG_URL }}
+        MSG_KEY: ${{ secrets.MSG_KEY }}
