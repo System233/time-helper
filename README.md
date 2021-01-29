@@ -10,6 +10,11 @@ MM再也不用担心自己上光荣榜了
 
 ## ❗插播公告
 
+>2021/1/29
+
+github action被防火墙阻断，请转向云函数或coding等其他平台部署。  
+稍后更新部署方法。
+
 >2021/1/24
 
 [提示在新设备上登录，需要验证码的解决方案](https://github.com/System233/time-helper/issues/2)
