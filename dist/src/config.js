@@ -24,7 +24,9 @@ exports.config = {
     PROXY_PORT: null,
     APP_VERSION: 10525101,
     TEXT_OK: '芜湖~打卡完成！',
-    TEMP_RANGE: "35.4-36.9"
+    TEMP_RANGE: "35.4-36.9",
+    BMAP_AK: 'E4805d16520de693a3fe707cdc962045',
+    LOCATION: null,
 };
 function setupConfig(data) {
     return Object.assign(exports.config, data);

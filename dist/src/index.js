@@ -15,4 +15,6 @@ __exportStar(require("./helper"), exports);
 __exportStar(require("./helper.dto"), exports);
 __exportStar(require("./session"), exports);
 __exportStar(require("./utils"), exports);
+__exportStar(require("./geocoder"), exports);
+__exportStar(require("./geocoder.dto"), exports);
 //# sourceMappingURL=index.js.map

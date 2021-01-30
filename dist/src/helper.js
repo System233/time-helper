@@ -25,6 +25,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Helper = exports.API = void 0;
 const axios_1 = __importDefault(require("axios"));
 const config_1 = __importStar(require("./config"));
+const geocoder_1 = require("./geocoder");
 class API {
     constructor(token) {
         this.token = token;
@@ -90,13 +91,21 @@ class API {
 }
 exports.API = API;
 class Helper extends API {
-    handleData(data) {
+    async handleData(data) {
         data.cusTemplateRelations.forEach(item => {
             if (item.assembltype == "Temperature") {
                 const [min, max] = config_1.default.TEMP_RANGE.split('-').map(parseFloat).sort();
                 item.value = (min + (Math.random() * (max - min))).toFixed(1);
             }
         });
+        if (config_1.default.LOCATION) {
+            const [lng, lat, radius] = config_1.default.LOCATION.split(',').map(x => parseFloat(x) || 0);
+            if (lng && lat) {
+                const [x, y] = geocoder_1.RandomLocation(lng, lat, radius);
+                const area = await geocoder_1.GetAreaInfo(x, y);
+                data.areaStr = JSON.stringify(area);
+            }
+        }
         return data;
     }
     async run() {

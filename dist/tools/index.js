@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setup = exports.send = exports.appId = exports.token = exports.main = void 0;
+exports.geo = exports.setup = exports.send = exports.appId = exports.token = exports.main = void 0;
 const inquirer_1 = __importDefault(require("inquirer"));
 const src_1 = require("../src");
 const formatField = (field) => {
@@ -17,7 +17,7 @@ const formatField = (field) => {
 const formatArea = (areaStr) => {
     try {
         const data = JSON.parse(areaStr);
-        return "地址：" + data.text + data.address;
+        return `地址：${data.text + data.address} ${data.pois}`;
     }
     catch (error) {
         return `地址解析错误(${error.message})：` + areaStr;
@@ -203,7 +203,7 @@ const setup = async () => {
             type: 'list',
             name: 'APP_ID',
             message: '选择打卡项目',
-            choices: async (anwser) => (await helper.getApps()).map(app => ({
+            choices: async () => (await helper.getApps()).map(app => ({
                 name: app.name,
                 value: src_1.getAppIdFromUrl(app.url)
             }))
@@ -212,7 +212,7 @@ const setup = async () => {
             type: 'input',
             name: 'SCKEY',
             message: 'Server酱SCKEY(不需要则跳过)',
-            validate: async (value, anwser) => {
+            validate: async (value) => {
                 const resp = await src_1.SendMessageWithSC(value, { text: '测试标题', desp: '测试内容' });
                 return resp.data.error_message || true;
             }
@@ -233,4 +233,17 @@ const setup = async () => {
     }
 };
 exports.setup = setup;
+const geo = async () => {
+    if (src_1.config.LOCATION) {
+        const [lng, lat, radius] = src_1.config.LOCATION.split(',').map(x => parseFloat(x) || 0);
+        const infos = await Promise.all([...Array(10)].map(() => src_1.RandomLocation(lng, lat, radius))
+            .map(([x, y]) => src_1.GetAreaInfo(x, y)));
+        const message = infos.map(info => `${info.lng},${info.lat},${info.address},${info.pois}`).join('\n');
+        await src_1.SendMessage('随机位置生成测试', message);
+    }
+    else {
+        await src_1.SendMessage('随机位置生成测试', "失败：没有设置LOCATION参数", true);
+    }
+};
+exports.geo = geo;
 //# sourceMappingURL=index.js.map

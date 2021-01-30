@@ -85,4 +85,18 @@ export interface SubmitData {
     userid: string;
     username: string;
 }
+export interface AreaStrDto {
+    streetNumber: string;
+    street: string;
+    district: string;
+    city: string;
+    province: string;
+    town: string;
+    pois: string;
+    lat: number;
+    lng: number;
+    code: string;
+    address: string;
+    text: string;
+}
 //# sourceMappingURL=helper.dto.d.ts.map

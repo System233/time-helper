@@ -13,7 +13,7 @@ export declare class API {
     submitData(data: SubmitData): Promise<any>;
 }
 export declare class Helper extends API {
-    handleData(data: LastSubmitData): LastSubmitData;
+    handleData(data: LastSubmitData): Promise<LastSubmitData>;
     run(): Promise<LastSubmitData>;
 }
 export default Helper;
