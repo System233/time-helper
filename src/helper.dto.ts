@@ -15,7 +15,7 @@ export interface DepartItemDto{
     childs:FieldItemDto[];
 }
 export interface LastSubmitData{
-    templateid: string;     //年级
+    templateid: string;
     username: string;       //用户名
 	customerid: string,     //学校ID
 	areaStr: string;
@@ -83,4 +83,21 @@ export interface SubmitData{
     updatainfo: UpDataInfoItem[];
     userid: string;
     username: string;
+}
+
+
+export interface AreaStrDto
+{
+    streetNumber: string,       //街道号
+    street: string,             //街道名称
+    district: string,           //区
+    city: string,               //市
+    province: string,           //省
+    town: string,               //未知：猜测为村，测试为空
+    pois: string,               //位置名称
+    lat: number,                //纬度
+    lng: number,                //经度
+    code: string,               //未知：猜测邮编，测试为空
+    address: string,            //区县+街道+街道号+名称
+    text: string,               //省-城市名
 }

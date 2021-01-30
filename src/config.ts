@@ -76,6 +76,24 @@ interface Config{
             PUSH+：https://pushplus.hxtrip.com/send?token={key}&title={title}&content={content}&template=html
     */
     MSG_URL:string;
+
+    /**
+     * 百度地图AK，可以不设置，用默认的
+     * 实测可以乱设，百度好像不校验权限
+     */
+    BMAP_AK:string;
+
+    /**
+     * 随机定位：经度,纬度,半径(可选)
+     *  到此处拾取坐标：http://api.map.baidu.com/lbsapi/getpoint/index.html
+     *  半径1约一米，与纬度有关
+     *  例：
+     *      111.25445,12.51515
+     *      123.456789,32.1654,100
+     *  
+     *  注意：在国内，各个地图的经纬度坐标不通用，当前解析服务是百度的，所以建议用百度地图拾取坐标。
+     */
+    LOCATION:string;
 }
 export const config:Config= {
     USER_AGENT: 'Dalvik/2.1.0 (Linux; U; Android 9; INE-AL00 Build/HUAWEIINE-AL00)',
@@ -100,7 +118,9 @@ export const config:Config= {
     PROXY_PORT:null,
     APP_VERSION:10525101,
     TEXT_OK:'芜湖~打卡完成！',
-    TEMP_RANGE:"35.4-36.9"
+    TEMP_RANGE:"35.4-36.9",
+    BMAP_AK:'E4805d16520de693a3fe707cdc962045',
+    LOCATION:null,
 }
 export function setupConfig(data:{[key in keyof typeof config]?:string}){
     return Object.assign(config,data);

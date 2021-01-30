@@ -1,12 +1,13 @@
 {
   "name": "time-helper",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "完美校园打卡机",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "main": "node dist/tools/main.js",
     "appId": "node dist/tools/appId.js",
+    "geo": "node dist/tools/geo.js",
     "setup": "node dist/tools/setup.js",
     "send": "node dist/tools/send.js",
     "token": "node dist/tools/token.js",

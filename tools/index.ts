@@ -1,6 +1,6 @@
 
 import inquirer from 'inquirer';
-import {getAppIdFromUrl, Helper,SendMessage,Session, config, SendMessageWithSC, FieldItemDto, LastSubmitData} from '../src'
+import {getAppIdFromUrl, Helper,SendMessage,Session, config, SendMessageWithSC, FieldItemDto, LastSubmitData, AreaStrDto,GetAreaInfo, RandomLocation } from '../src'
 
 
 
@@ -14,8 +14,8 @@ const formatField=(field:FieldItemDto)=>{
 }
 const formatArea=(areaStr:string)=>{
     try {
-        const data=JSON.parse(areaStr);
-        return "地址："+data.text+data.address
+        const data=JSON.parse(areaStr) as AreaStrDto;
+        return `地址：${data.text+data.address} ${data.pois}`
     } catch (error) {
         return `地址解析错误(${error.message})：`+areaStr;
     }
@@ -44,7 +44,7 @@ const sendResult=async(data:LastSubmitData)=>{
     ].join('  \n');
     await SendMessage(title,message);
 }
-export const main=async()=>{
+export const main=async():Promise<void>=>{
     try{
         const ss=await Session.create(config.TYPE=='token'&&config.TOKEN);
         const token=await ss.authenticate({
@@ -64,7 +64,7 @@ export const main=async()=>{
     
 };
 
-export const token=async()=>{
+export const token=async():Promise<void>=>{
     try{
         const ss=await Session.create(config.TYPE=='token'&&config.TOKEN);
         const token=await ss.authenticate({
@@ -91,7 +91,7 @@ export const token=async()=>{
 };
 
 
-export const appId=async()=>{
+export const appId=async():Promise<void>=>{
     try{
         const ss=await Session.create(config.TYPE=='token'&&config.TOKEN);
         const token=await ss.authenticate({
@@ -117,7 +117,7 @@ export const appId=async()=>{
     
 }
 
-export const send=async()=>{
+export const send=async():Promise<void>=>{
     try {
         await SendMessage(process.argv[2],process.argv.slice(3).join(),true);
     } catch (error) {
@@ -126,12 +126,12 @@ export const send=async()=>{
     }
 }
 
-export const setup=async()=>{
+export const setup=async():Promise<void>=>{
     console.log('\x1B[36m%s\x1B[0m','[打卡参数配置向导]');
     const ss=await Session.create();
     let helper:Helper;
     const toAuthData=(anwser)=>[].reduce.call(Object.keys(anwser),(obj,key:string)=>Object.assign(obj,{[key.toLowerCase()]:anwser[key]}),{});
-    const test=async(anwser:any,message?:string)=>{
+    const test=async(anwser,message?:string)=>{
         try {
             const option=toAuthData(anwser);
             if(anwser.TYPE=='sms'){
@@ -207,7 +207,7 @@ export const setup=async()=>{
                 type:'list',
                 name:'APP_ID',
                 message:'选择打卡项目',
-                choices:async (anwser)=>(await helper.getApps()).map(app=>({
+                choices:async ()=>(await helper.getApps()).map(app=>({
                         name:app.name,
                         value:getAppIdFromUrl(app.url)
                 }))
@@ -216,7 +216,7 @@ export const setup=async()=>{
                 type:'input',
                 name:'SCKEY',
                 message:'Server酱SCKEY(不需要则跳过)',
-                validate:async(value,anwser)=>{
+                validate:async(value)=>{
                     const resp=await SendMessageWithSC(value,{text:'测试标题',desp:'测试内容'})
                     return resp.data.error_message||true;
                 }
@@ -236,5 +236,19 @@ export const setup=async()=>{
 
     if(config.TYPE=="token"){
         console.warn('\x1B[33m%s\x1B[0m','注意：当前配置使用令牌进行签到，但目前尚不清楚令牌的有效期。若令牌在短时间内频繁失效请换用账号密码登录。')
+    }
+}
+
+
+export const geo=async():Promise<void>=>{
+    
+    if(config.LOCATION){
+        const [lng,lat,radius]=config.LOCATION.split(',').map(x=>parseFloat(x)||0);
+        const infos=await Promise.all([...Array(10)].map(()=>RandomLocation(lng,lat,radius))
+                      .map(([x,y])=>GetAreaInfo(x,y)));
+        const message=infos.map(info=>`${info.lng},${info.lat},${info.address},${info.pois}`).join('\n');
+        await SendMessage('随机位置生成测试',message)
+    }else{
+        await SendMessage('随机位置生成测试',"失败：没有设置LOCATION参数",true)
     }
 }

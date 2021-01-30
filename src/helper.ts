@@ -1,5 +1,6 @@
 import Axios, { AxiosInstance } from "axios";
 import config, { getProxyInfo } from "./config"
+import { GetAreaInfo, RandomLocation } from "./geocoder";
 import { AppInfoDto, LastSubmitData, SubmitData, UserInfoDto } from "./helper.dto";
 
 
@@ -70,16 +71,26 @@ export class API{
 
 export class Helper extends API{
     
-    handleData(data:LastSubmitData){
+    
+
+    async handleData(data:LastSubmitData):Promise<LastSubmitData>{
         data.cusTemplateRelations.forEach(item=>{
             if(item.assembltype=="Temperature"){
                 const [min,max]=config.TEMP_RANGE.split('-').map(parseFloat).sort();
                 item.value=(min+(Math.random()*(max-min))).toFixed(1);
             }
         });
+        if(config.LOCATION){
+            const [lng,lat,radius]=config.LOCATION.split(',').map(x=>parseFloat(x)||0);
+            if(lng&&lat){
+                const [x,y]=RandomLocation(lng,lat,radius)
+                const area=await GetAreaInfo(x,y);
+                data.areaStr=JSON.stringify(area);
+            }
+        }
         return data;
     }
-    async run(){
+    async run():Promise<LastSubmitData>{
         const raw=await this.getLastData(config.APP_ID);
         const data=await this.handleData(raw);
         const {areaStr,customerid,deptStr,phonenum,stuNo,username,userid,cusTemplateRelations}=data;
