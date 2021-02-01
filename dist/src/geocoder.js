@@ -245,10 +245,10 @@ const GetAreaInfo = async (lng, lat) => {
         city: detail.city,
         province: detail.province,
         town: detail.town,
-        pois: data.poi_region[0]?.name || '',
+        pois: data.poi_region[0] && data.poi_region[0].name || '',
         lat: lat,
         lng: lng,
-        code: data.surround_poi[0]?.zip || '',
+        code: data.surround_poi[0] && data.surround_poi[0].zip || '',
         address: data.address,
         text: [detail.province, detail.city].join('-'),
     };

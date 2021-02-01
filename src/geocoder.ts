@@ -242,10 +242,10 @@ export const GetAreaInfo=async(lng:number,lat:number):Promise<AreaStrDto>=>{
         city: detail.city,
         province: detail.province,
         town: detail.town,                        //未知：猜测为镇，测试为空
-        pois: data.poi_region[0]?.name||'',   //位置名称
+        pois: data.poi_region[0]&&data.poi_region[0].name||'',   //位置名称
         lat: lat,                 //纬度
         lng: lng,                //经度
-        code: data.surround_poi[0]?.zip||'',                  //未知：猜测邮编，测试为空
+        code: data.surround_poi[0]&&data.surround_poi[0].zip||'',                  //未知：猜测邮编，测试为空
         address: data.address, //区县+街道+街道号+名称
         text: [detail.province,detail.city].join('-'), //省+城市名
       }
